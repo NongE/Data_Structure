@@ -1,0 +1,163 @@
+#include <stdio.h>
+
+int num;
+int *arr;
+int data;
+
+void printArr()
+{
+	for (int i = 0; i < num; i++)
+	{
+		printf(" %d",arr[i]);
+	}
+	printf("\n");
+}
+
+int findMid(int max,int min)
+{
+	int index[3];
+	int temp;
+
+	for (int i = 0; i < 3; i++)
+	{
+		index[i] = arr[(rand() % ((max - min) + 1) + min)];
+	}
+	
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3 - i; j++)
+		{
+			if (j + 1 < 3)
+			{
+				if (index[j] > index[j + 1])
+				{
+					temp = index[j];
+					index[j] = index[j + 1];
+					index[j + 1] = temp;
+				}
+			}
+
+		}
+
+	}
+
+	return index[1];
+}
+
+void partition(int max, int min)
+{
+	int p=0;
+	int temp;
+	int left = min;
+	int right = max;
+
+	if (max - min >= 2)
+	{
+		temp = findMid(max, min);
+		for (int i = 0; i < max; i++)
+		{
+			if (arr[i] == temp)
+			{
+				p = i;
+				break;
+			}
+		}
+	}
+
+	else
+	{
+		 p = max;
+	}
+
+	if (p < min)
+	{
+		p = min;
+	}
+
+	while ((left < right) && max >= 0 && min >= 0)
+	{
+		while ((arr[left] <= arr[p]) && (left < right))
+		{
+			if (left == p)
+				break;
+			left++;
+		}
+
+		while ((arr[right] >= arr[p]) && (left < right))
+		{
+			if (right == p)
+				break;
+			right--;
+		}
+
+		if ((left < right) && left != p && right != p)
+		{
+
+			temp = arr[left];
+			arr[left] = arr[right];
+			arr[right] = temp;
+		}
+
+		else if (left == right)
+		{
+		/*	if (p <0)
+			{
+				break;
+			}
+			*/
+			partition(p - 1, min);
+			partition(max, p+1);
+			
+		}
+
+		else if (left == p || right == p)
+		{
+			if (arr[left] == arr[p])
+			{
+				p = right;
+			}
+			else
+			{
+				p = left;
+			}
+
+			if (arr[left] == arr[right])
+			{
+				break;
+			}
+
+			temp = arr[left];
+			arr[left] = arr[right];
+			arr[right] = temp;
+
+			
+		}
+		
+	}
+	return;
+
+}
+
+int main()
+{
+	scanf("%d",&num);
+	getchar();
+
+	arr = (int*)malloc(sizeof(int)*num);
+	
+	for (int i = 0; i < num; i++)
+	{
+		do 
+		{
+			scanf("%d", &arr[i]);
+			getchar();
+		} while (arr[i] <=0);
+	}
+
+	partition(num-1,0);
+
+	//printf("퀵정렬 >> \n");
+	printArr();
+
+	return 0;
+}

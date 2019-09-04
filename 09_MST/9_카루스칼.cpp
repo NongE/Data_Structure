@@ -1,0 +1,246 @@
+#include <stdio.h>
+
+int **g;
+
+int *unionCheck;
+int unionCount = 0;
+
+int *Edge;
+int edgeCount = 0;
+int edgeStart = -1;
+
+int *answer;
+int answerCount = 0;
+
+int cost = 0;
+int N, M;
+
+void kruskal() 
+{
+	int i, j, k;
+	int max, min;
+	int index = 0;
+	int bp = 0;
+
+	edgeStart++;
+	for (i = 0; i < N; i++)
+	{
+		if (bp == 1)
+		{
+			i--;
+			break;
+		}
+		for (j = 0; j < N; j++)
+		{
+			if (Edge[edgeStart] == g[i][j])
+			{
+				bp = 1;
+				break;
+			}
+		}
+	}
+	
+	if (unionCheck[i] != unionCheck[j]) // 두 정점이 동일한 유니온이 아닌경우
+	{
+		if (unionCheck[i] < unionCheck[j])
+		{
+			min = unionCheck[i];
+			max = unionCheck[j];
+
+			unionCheck[i] = min;
+			unionCheck[j] = min;
+
+			for (k = 0; k < N; k++)
+			{
+				if (unionCheck[k] == max)
+				{
+					unionCheck[k] = min;
+				} // 작은 수에 맞춰 동일한 유니온으로 설정
+			}
+
+		}
+		else
+		{
+			min = unionCheck[j];
+			max = unionCheck[i];
+
+			unionCheck[i] = min;
+			unionCheck[j] = min;
+
+			for (k = 0; k < N; k++)
+			{
+				if (unionCheck[k] == max)
+				{
+					unionCheck[k] = min;
+				}
+			}
+		}
+
+		cost += Edge[edgeStart]; // 가중치
+		answer[answerCount] = Edge[edgeStart];
+		answerCount++;
+
+	
+
+	}
+
+	/*printf("\n유니온 현황 \n");
+	for (i = 0; i < N; i++)
+	{
+		printf("%d ", unionCheck[i]);
+	}
+	printf("\n");
+
+	*/
+	for (i = 0; i < N; i++)
+	{
+		if (unionCheck[0] == unionCheck[i])
+		{
+			index++;
+		}
+	}
+
+	
+	if (index >= N)
+	{
+		for (i = 0; i < answerCount; i++)
+		{
+			printf("%d ",answer[i]);
+		}
+		printf("\n");
+		printf("%d",cost);
+		return;
+	}
+
+	
+	kruskal();
+
+}
+
+
+int main()
+{
+
+	int i, j, k;
+	int a, b, c;
+	int temp = 0;
+
+	scanf("%d %d", &N, &M);
+
+
+	g = (int**)malloc(sizeof(int*) * (N));
+
+	for (i = 0; i < N; i++)
+	{
+		g[i] = (int*)malloc(sizeof(int) * (N));
+	}
+
+
+	for (i = 0; i < N; i++)
+	{
+		for (j = 0; j < N; j++)
+		{
+			g[i][j] = 999;
+		}
+	}
+
+	// 인접행렬 동적할당 및 999로 초기화
+
+
+	unionCheck = (int*)malloc(sizeof(int)*(N));
+
+	for (i = 0; i < N; i++)
+	{
+		unionCheck[i] = i;
+	}
+
+	Edge = (int*)malloc(sizeof(int)*(M));
+
+	for (i = 0; i < M; i++)
+	{
+		Edge[i] = 0;
+	}
+
+	// 가중치 저장하는 배열 초기화
+
+	answer = (int*)malloc(sizeof(int)*(N));
+
+	for (i = 0; i < N; i++)
+	{
+		answer[i] = 0;
+	}
+
+	// 정답을 저장하는 배열 초기화
+
+
+	for (i = 0; i < M; i++)
+	{
+		scanf("%d %d %d", &a, &b, &c);
+		getchar();
+
+		g[a - 1][b - 1] = c;
+		g[b - 1][a - 1] = c;
+		Edge[edgeCount] = c;
+		edgeCount++;
+
+	}
+
+	for (i = 0; i < M; i++)
+	{
+		for (j = 0; j < N; j++)
+		{
+			if (i == j)
+			{
+				g[i][j] = 0;
+			}
+		}
+
+	}
+	// a,a 정점 0으로 초기화
+
+	for (i = 0; i < M; i++)
+	{
+		for (j = 0; j < (M - 1) - i; j++)
+		{
+			if (Edge[j] > Edge[j + 1])
+			{
+				temp = Edge[j];
+				Edge[j] = Edge[j + 1];
+				Edge[j + 1] = temp;
+			}
+
+		}
+
+	} // 오름차순 정렬
+
+	/*
+	printf("\n행렬 현황\n");
+	for (i = 0; i < N; i++)
+	{
+		for (j = 0; j < N; j++)
+		{
+			printf("%3d ", g[i][j]);
+		}
+		printf("\n");
+	}
+
+
+	printf("\n엣지 현황 \n");
+
+	for (j = 0; j < M; j++)
+	{
+		printf("%2d ", Edge[j]);
+	}
+	//printf("\n");
+
+	printf("\n유니온 현황 \n");
+	for (i = 0; i < N; i++)
+	{
+		printf("%d ", unionCheck[i]);
+	}
+	printf("\n");
+	*/
+	kruskal();
+
+	return 0;
+}
