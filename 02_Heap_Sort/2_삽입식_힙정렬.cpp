@@ -40,14 +40,14 @@ void upHeap(int num)
 	{
 		root = i / 2;
 
-		if (arr[root] < arr[i]) // ÁÂ¿ìÃø ÀÚ½Ä°ú Å©±â ºñ±³, ·çÆ®´Â 1ºÎÅÍ ½ÃÀÛÀÌ±â¿¡ ·çÆ® 0Àº ¹«½Ã
+		if (arr[root] < arr[i]) // ì¢Œìš°ì¸¡ ìì‹ê³¼ í¬ê¸° ë¹„êµ, ë£¨íŠ¸ëŠ” 1ë¶€í„° ì‹œì‘ì´ê¸°ì— ë£¨íŠ¸ 0ì€ ë¬´ì‹œ
 		{
 			temp = arr[i];
 			arr[i] = arr[root];
-			arr[root] = temp; // ºÎ¸ğÀÚ½Ä ±³ÇÑ
+			arr[root] = temp; // ë¶€ëª¨ìì‹ êµí•œ
 	
 
-			if (root % 2 == 0 && root != 1 && arr[root] > arr[root / 2]) // ºÎ¸ğ ÀÚ½Ä ±³È¯ ÈÄ ±× »óÀ§ ºÎ¸ğ¿Í Å©±â ºñ±³, ¿ìÃø È®ÀÎ
+			if (root % 2 == 0 && root != 1 && arr[root] > arr[root / 2]) // ë¶€ëª¨ ìì‹ êµí™˜ í›„ ê·¸ ìƒìœ„ ë¶€ëª¨ì™€ í¬ê¸° ë¹„êµ, ìš°ì¸¡ í™•ì¸
 			{
 				temp = arr[root / 2];
 				arr[root / 2] = arr[root];
@@ -55,7 +55,7 @@ void upHeap(int num)
 				upHeap(root);
 			}
 
-			else if (root % 2 == 1 && root != 1 && arr[root] > arr[root / 2])// ºÎ¸ğ ÀÚ½Ä ±³È¯ ÈÄ ±× »óÀ§ ºÎ¸ğ¿Í Å©±â ºñ±³, ÁÂÃø È®ÀÎ
+			else if (root % 2 == 1 && root != 1 && arr[root] > arr[root / 2])// ë¶€ëª¨ ìì‹ êµí™˜ í›„ ê·¸ ìƒìœ„ ë¶€ëª¨ì™€ í¬ê¸° ë¹„êµ, ì¢Œì¸¡ í™•ì¸
 			{
 				temp = arr[root / 2];
 				arr[root / 2] = arr[root];

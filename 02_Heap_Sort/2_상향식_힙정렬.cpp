@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int H[100];
-int n; // Å©±â ÀÔ·Â
+int n; // í¬ê¸° ì…ë ¥
 
 void downHeap(int num);
 void buildHeap(int num) 
@@ -86,13 +86,13 @@ int main()
 
 {
 	int i, j, k;
-	scanf("%d",&n); // ¹è¿­ Å©±â ÀÔ·Â¹Ş±â
+	scanf("%d",&n); // ë°°ì—´ í¬ê¸° ì…ë ¥ë°›ê¸°
 	getchar();
 
 	for (i = 1; i <= n; i++)
 	{
 
-		scanf("%d",&H[i]); // Å©±â ¸¸Å­ ¼ıÀÚ ÀÔ·Â
+		scanf("%d",&H[i]); // í¬ê¸° ë§Œí¼ ìˆ«ì ì…ë ¥
 		getchar();
 	}
 

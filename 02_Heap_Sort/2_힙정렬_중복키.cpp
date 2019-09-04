@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int H[100];
-int n; // Å©±â ÀÔ·Â
+int n; // í¬ê¸° ì…ë ¥
 int index;
 
 void downHeap(int num);
@@ -11,13 +11,13 @@ void buildHeap(int num)
 		return;
 	else
 	{
-		buildHeap(2 * num); // Æ®¸®ÀÇ ¿ŞÂÊ
-		buildHeap(2 * num + 1); // ¿À¸¥ÂÊ
-		downHeap(num);// Á¤·Ä
+		buildHeap(2 * num); // íŠ¸ë¦¬ì˜ ì™¼ìª½
+		buildHeap(2 * num + 1); // ì˜¤ë¥¸ìª½
+		downHeap(num);// ì •ë ¬
 	}
 }
 
-void downHeap(int num) // ´Ù¿îÈü ½ÃÀÛ
+void downHeap(int num) // ë‹¤ìš´í™ ì‹œì‘
 {
 	int temp;
 
@@ -73,7 +73,7 @@ void downHeap(int num) // ´Ù¿îÈü ½ÃÀÛ
 
 
 
-void inPlaceHeapSort() // ¼øÂ÷ÀûÀ¸·Î ¹è¿­ Á¤¸®, Á¦ÀÚ¸® Á¤·Ä
+void inPlaceHeapSort() // ìˆœì°¨ì ìœ¼ë¡œ ë°°ì—´ ì •ë¦¬, ì œìë¦¬ ì •ë ¬
 {
 	int i = 0;
 
@@ -111,7 +111,7 @@ int main()
 
 	do
 	{
-		scanf("%d", &n); // ¹è¿­ Å©±â ÀÔ·Â¹Ş±â
+		scanf("%d", &n); // ë°°ì—´ í¬ê¸° ì…ë ¥ë°›ê¸°
 		getchar();
 	} while (n>100);
 
@@ -121,7 +121,7 @@ int main()
 	{
 		do
 		{
-			scanf("%d", &H[i]); // Å©±â ¸¸Å­ ¼ıÀÚ ÀÔ·Â
+			scanf("%d", &H[i]); // í¬ê¸° ë§Œí¼ ìˆ«ì ì…ë ¥
 			getchar();
 		} while (H[i]<=0);
 	}
